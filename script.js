@@ -81,7 +81,7 @@ let boutonPlacement = document.getElementById('choixCase');
 boutonPlacement.addEventListener('click', placementMot);
 
 function placementMot() {
-    //verif que le mot a bien était défini
+    //verif que le mot a bien était validé
     if (motDecompose === undefined) {
         alert("Veuillez valider le choix d'un mot");
     } else {
@@ -97,7 +97,7 @@ function placementMot() {
         //verif qu'au premier tour le mot a une lettre dans la case centrale
         if (tour === 0) {
             if (verifPremierTour(coordonneeX, coordonneeY, choixDirection)) {
-                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
+                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie,coordonnesCaseChoisie);
             } else {
                 alert("Au premier tour le mot doit avoir une lettre sur la case centrale")
             }
@@ -144,7 +144,7 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
                 caseChoisie.innerHTML = motDecompose[i];
                 coordonneeX++;
                 tour++;
-                coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
+                let coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
                 caseChoisie = document.getElementById(coordonnesCaseChoisie);
             }
         }
@@ -162,7 +162,7 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
                 caseChoisie.innerHTML = motDecompose[i];
                 coordonneeY++;
                 tour++;
-                coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
+                let coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
                 caseChoisie = document.getElementById(coordonnesCaseChoisie);
             }
         }
