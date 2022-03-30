@@ -95,47 +95,17 @@ function placementMot() {
         let choixDirection = document.getElementById('choixDirection').value;
         console.log(choixDirection);
         //verif qu'au premier tour le mot a une lettre dans la case centrale
-            //verif que le mot rentre de le cadre en recuperant la direction je vais verifier que le X ou le Y ne depasse pas 14
-            if (choixDirection === 'droite') {
-                let coordonneeXFin = coordonneeX + motDecompose.length;
-                console.log(coordonneeXFin);
-                if (coordonneeXFin > 14) {
-                    alert('le mot ne rentre pas dans la grille')
-                } else {
-                    for (let i = 0; i <= motDecompose.length - 1; i++) {
-                        coordonneeXFin = 0;
-                        caseChoisie.setAttribute('class', 'caseOccupee');
-                        let position = grille.find(element => element.X == coordonneeX && element.Y == coordonneeY);
-                        position.occupe = true;
-                        caseChoisie.innerHTML = motDecompose[i];
-                        coordonneeX++;
-                        tour++;
-                        coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
-                        caseChoisie = document.getElementById(coordonnesCaseChoisie);
-                    }
-                }
-            } else if (choixDirection === 'bas') {
-                let coordonneeYFin = coordonneeY + motDecompose.length;
-                console.log(coordonneeYFin);
-                if (coordonneeYFin > 14) {
-                    alert('le mot ne rentre pas dans la grille')
-                } else {
-                    for (let i = 0; i <= motDecompose.length - 1; i++) {
-                        coordonneeYFin = 0;
-                        caseChoisie.setAttribute('class', 'caseOccupee');
-                        let position = grille.find(element => element.X == coordonneeX && element.Y == coordonneeY);
-                        position.occupe = true;
-                        caseChoisie.innerHTML = motDecompose[i];
-                        coordonneeY++;
-                        tour++;
-                        coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
-                        caseChoisie = document.getElementById(coordonnesCaseChoisie);
-                    }
-                }
+        if (tour === 0) {
+            if (verifPremierTour(coordonneeX, coordonneeY, choixDirection)) {
+                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
             } else {
-                alert("la direction indiquée n'est pas valable")
+                alert("Au premier tour le mot doit avoir une lettre sur la case centrale")
             }
-
+        } else {
+            //verif que le mot rentre de le cadre en recuperant la direction je vais verifier que le X ou le Y ne depasse pas 14
+            //si c'est bon le mot s'écrie dans les cases
+            ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
+        }
     }
 }
 
@@ -152,13 +122,51 @@ function verifPremierTour(coordonneeX, coordonneeY, choixDirection) {
             coordonneeY += i;
             idCasesMot.push({'X': coordonneeX, 'Y': coordonneeY});
         }
-        console.log(idCasesMot);
-        if (idCasesMot.find(element => element.X === 7 && element.Y === 7) !== undefined) {
-            return true
-        }
+    }
+    console.log(idCasesMot);
+    if (idCasesMot.find(element => element.X === 7 && element.Y === 7) !== undefined) {
+        return true
     }
 }
 
-function ecritureMot(coordonneeX,coordonneeY,choixDirection){
-
+function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
+    if (choixDirection === 'droite') {
+        let coordonneeXFin = coordonneeX + motDecompose.length;
+        console.log(coordonneeXFin);
+        if (coordonneeXFin > 14) {
+            alert('le mot ne rentre pas dans la grille')
+        } else {
+            for (let i = 0; i <= motDecompose.length - 1; i++) {
+                coordonneeXFin = 0;
+                caseChoisie.setAttribute('class', 'caseOccupee');
+                let position = grille.find(element => element.X == coordonneeX && element.Y == coordonneeY);
+                position.occupe = true;
+                caseChoisie.innerHTML = motDecompose[i];
+                coordonneeX++;
+                tour++;
+                coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
+                caseChoisie = document.getElementById(coordonnesCaseChoisie);
+            }
+        }
+    } else if (choixDirection === 'bas') {
+        let coordonneeYFin = coordonneeY + motDecompose.length;
+        console.log(coordonneeYFin);
+        if (coordonneeYFin > 14) {
+            alert('le mot ne rentre pas dans la grille')
+        } else {
+            for (let i = 0; i <= motDecompose.length - 1; i++) {
+                coordonneeYFin = 0;
+                caseChoisie.setAttribute('class', 'caseOccupee');
+                let position = grille.find(element => element.X == coordonneeX && element.Y == coordonneeY);
+                position.occupe = true;
+                caseChoisie.innerHTML = motDecompose[i];
+                coordonneeY++;
+                tour++;
+                coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
+                caseChoisie = document.getElementById(coordonnesCaseChoisie);
+            }
+        }
+    } else {
+        alert("la direction indiquée n'est pas valable")
+    }
 }
