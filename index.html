@@ -9,6 +9,25 @@
 <h1>Scrabble</h1>
 
 <div>
+    <p>Pour insérer un mot dans la grille pensez bien à le valider après l'avoir saisi.<br>
+        Choisissez ensuite les coordonnées de la case sur la grille (le premier chiffre de la case correspond à sa
+        coordonnée sur l'axe Y vertical et le second à sa coordonnée sur l'axe X horizontal).<br>
+        Puis indiquez la direction dans laquelle vous voulez que le mot s'affiche.<br>
+        Ensuite il n'y a plus qu'à valider pour que le mot s'affiche.
+    </p>
+</div>
+
+<div>
+    <h2>Rappel des rêgles</h2>
+    <ul>
+        <li>Les mots sont placés une lettre par case et ne peuvent pas dépasser de la grille</li>
+        <li>Les mots peuvent-être placés à la verticale ou à l'horizontale</li>
+        <li>Une lettre ne peut pas être placée sur une case occupée</li>
+        <li>Une des lettres du premier mot doit être placée sur la case centrale (coordonnée 7-7)</li>
+    </ul>
+</div>
+
+<div>
     <label for="mot">Saisir le mot</label>
 
     <input type="text" id="mot" name="name" required
@@ -17,11 +36,11 @@
 </div>
 
 <div>
+    <label>Cordonnées Y</label>
+    <select name="coordonnee_y" id="coordonnee_y">
+    </select>
     <label>Coordonnées X</label>
     <select name="coordonnee_x" id="coordonnee_x">
-    </select>
-    <label >Cordonnées Y</label>
-    <select name="coordonnee_y" id="coordonnee_y">
     </select>
     <label>choix de la direction du mot</label>
     <select name="choixDirection" id="choixDirection">
@@ -35,10 +54,6 @@
     <div id="cadre">
     </div>
 </div>
-
-
-
-
 
 
 <script src="script.js"></script>

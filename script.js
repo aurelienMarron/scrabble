@@ -4,6 +4,7 @@ let tour = 0;
 
 //fonction qui crée la grille et marque la case centrale en rouge
 function creationGrille() {
+    //la fonction créé la grille. Elle créé les lignes puis les cases dans les lignes
     let idCadre = document.getElementById('cadre')
     for (let i = 0; i <= 14; i++) {
         let nvldiv = document.createElement('div');
@@ -28,10 +29,10 @@ function creationGrille() {
 
 
 creationGrille()
-console.log(grille);
 affichageChoixCoordonnee();
 let boutonValidMot = document.getElementById('validationMot');
 boutonValidMot.addEventListener('click', recupMot);
+
 
 function recupMot() {
     let mot = document.getElementById('mot').value;
@@ -41,26 +42,12 @@ function recupMot() {
         motDecompose = mot.split('');
         console.log(motDecompose);
         return motDecompose;
-        /* document.getElementsByClassName('case').ondblclick=function(){
-             let elt=this;
-             let idElt=this.getAttribute('id');
-             console.log(idElt);
-         }*/
-        //marche plus a partir de la
-        //let caseDepart=document.getElementsByClassName('case');
-        //let idCaseDepart=caseDepart.getAttribute('id');
-        //console.log(idCaseDepart);
     }
 }
 
-/*function recupIdCase(){
-    let caseDebut=document.ondblclick.getAttribute('id');
-//let caseDebut=document.addEventListener('dblclick');
-let idCaseDebut=caseDebut.getAttribute('id');
-    console.log(idCaseDebut);
-}*/
 
 function affichageChoixCoordonnee() {
+    //la fonction affiche le choix de coordonnées dans le select
     let selectX = document.getElementById('coordonnee_x');
     for (let i = 0; i < 15; i++) {
         let element = document.createElement("option");
@@ -97,16 +84,16 @@ function placementMot() {
         //verif qu'au premier tour le mot a une lettre dans la case centrale
         if (tour === 0) {
             if (verifPremierTour(coordonneeX, coordonneeY, choixDirection)) {
-                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie,coordonnesCaseChoisie);
+                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie, coordonnesCaseChoisie);
             } else {
                 alert("Au premier tour le mot doit avoir une lettre sur la case centrale")
             }
         } else {
             //verif que le mot rentre de le cadre en recuperant la direction je vais verifier que le X ou le Y ne depasse pas 14
             //si c'est bon le mot s'écrie dans les cases
-            if(verifCaseOccupee(coordonneeX, coordonneeY, choixDirection)===true){
+            if (verifCaseOccupee(coordonneeX, coordonneeY, choixDirection) === true) {
                 alert('une case séléctionnée est occupée')
-            }else {
+            } else {
                 ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
             }
         }
@@ -115,6 +102,7 @@ function placementMot() {
 
 
 function verifPremierTour(coordonneeX, coordonneeY, choixDirection) {
+    //la fonction vérifie que le mot a bien une lettre dans la case centrale
     let idCasesMot = []
     if (choixDirection === 'droite') {
         for (let i = 0; i < motDecompose.length - 1; i++) {
@@ -134,6 +122,7 @@ function verifPremierTour(coordonneeX, coordonneeY, choixDirection) {
 }
 
 function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
+    //la fonction vérifie que le mot rentre dans la grille puis le fait apparaitre dans la grille dans le sens choisi
     if (choixDirection === 'droite') {
         let coordonneeXFin = coordonneeX + motDecompose.length;
         console.log(coordonneeXFin);
@@ -175,7 +164,7 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
     }
 }
 
-function verifCaseOccupee(coordonneeX, coordonneeY, choixDirection){
+function verifCaseOccupee(coordonneeX, coordonneeY, choixDirection) {
     //la fonction vérifie qu'aucune case selectionnée n'est occupée
     let idCasesMot = [];
     if (choixDirection === 'droite') {
@@ -189,9 +178,9 @@ function verifCaseOccupee(coordonneeX, coordonneeY, choixDirection){
             idCasesMot.push({'X': coordonneeX, 'Y': coordonneeY});
         }
     }
-    for(let j=0;j<idCasesMot.length;j++){
-        let caseSelectionnee=grille.find(element=>element.X===idCasesMot[j].X && element.Y===idCasesMot[j].Y);
-        if(caseSelectionnee.occupe===true){
+    for (let j = 0; j < idCasesMot.length; j++) {
+        let caseSelectionnee = grille.find(element => element.X === idCasesMot[j].X && element.Y === idCasesMot[j].Y);
+        if (caseSelectionnee.occupe === true) {
             return true
         }
     }
