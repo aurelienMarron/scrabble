@@ -104,7 +104,11 @@ function placementMot() {
         } else {
             //verif que le mot rentre de le cadre en recuperant la direction je vais verifier que le X ou le Y ne depasse pas 14
             //si c'est bon le mot s'écrie dans les cases
-            ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
+            if(verifCaseOccupee(coordonneeX, coordonneeY, choixDirection)===true){
+                alert('une case séléctionnée est occupée')
+            }else {
+                ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie);
+            }
         }
     }
 }
@@ -168,5 +172,27 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
         }
     } else {
         alert("la direction indiquée n'est pas valable")
+    }
+}
+
+function verifCaseOccupee(coordonneeX, coordonneeY, choixDirection){
+    //la fonction vérifie qu'aucune case selectionnée n'est occupée
+    let idCasesMot = [];
+    if (choixDirection === 'droite') {
+        for (let i = 0; i < motDecompose.length - 1; i++) {
+            coordonneeX += i;
+            idCasesMot.push({'X': coordonneeX, 'Y': coordonneeY});
+        }
+    } else if (choixDirection === 'bas') {
+        for (let i = 0; i < motDecompose.length - 1; i++) {
+            coordonneeY += i;
+            idCasesMot.push({'X': coordonneeX, 'Y': coordonneeY});
+        }
+    }
+    for(let j=0;j<idCasesMot.length;j++){
+        let caseSelectionnee=grille.find(element=>element.X===idCasesMot[j].X && element.Y===idCasesMot[j].Y);
+        if(caseSelectionnee.occupe===true){
+            return true
+        }
     }
 }
