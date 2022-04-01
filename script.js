@@ -35,12 +35,12 @@ boutonValidMot.addEventListener('click', recupMot);
 
 
 function recupMot() {
+    //la fonction recupere le mot saisi dans l'input en le divise par lettre
     let mot = document.getElementById('mot').value;
     if (mot.length > 15) {
         alert('Le mot saisi fait plus de 15 caractères')
     } else {
         motDecompose = mot.split('');
-        console.log(motDecompose);
         return motDecompose;
     }
 }
@@ -75,12 +75,9 @@ function placementMot() {
         //recuperation de la case par son id avec les coordonnees choisies
         let coordonneeX = parseInt(document.getElementById('coordonnee_x').value);
         let coordonneeY = parseInt(document.getElementById('coordonnee_y').value);
-        console.log(coordonneeX, coordonneeY);
         let coordonnesCaseChoisie = coordonneeY + "-" + coordonneeX;
-        console.log(coordonnesCaseChoisie);
         let caseChoisie = document.getElementById(coordonnesCaseChoisie);
         let choixDirection = document.getElementById('choixDirection').value;
-        console.log(choixDirection);
         //verif qu'au premier tour le mot a une lettre dans la case centrale
         if (tour === 0) {
             if (verifPremierTour(coordonneeX, coordonneeY, choixDirection)) {
@@ -115,7 +112,6 @@ function verifPremierTour(coordonneeX, coordonneeY, choixDirection) {
             idCasesMot.push({'X': coordonneeX, 'Y': coordonneeY});
         }
     }
-    console.log(idCasesMot);
     if (idCasesMot.find(element => element.X === 7 && element.Y === 7) !== undefined) {
         return true
     }
@@ -125,7 +121,6 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
     //la fonction vérifie que le mot rentre dans la grille puis le fait apparaitre dans la grille dans le sens choisi
     if (choixDirection === 'droite') {
         let coordonneeXFin = coordonneeX + motDecompose.length;
-        console.log(coordonneeXFin);
         if (coordonneeXFin > 14) {
             alert('le mot ne rentre pas dans la grille')
         } else {
@@ -143,7 +138,6 @@ function ecritureMot(coordonneeX, coordonneeY, choixDirection, caseChoisie) {
         }
     } else if (choixDirection === 'bas') {
         let coordonneeYFin = coordonneeY + motDecompose.length;
-        console.log(coordonneeYFin);
         if (coordonneeYFin > 14) {
             alert('le mot ne rentre pas dans la grille')
         } else {
